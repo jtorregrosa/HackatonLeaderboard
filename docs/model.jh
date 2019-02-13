@@ -1,0 +1,23 @@
+entity Stage {
+	name String required unique
+    description String
+}
+
+entity Team {
+	name String required unique
+    description String
+}
+
+entity Score {
+	value Integer required
+}
+
+relationship OneToMany {
+	Team{score required} to Score
+}
+
+relationship OneToMany {
+	Stage{score required} to Score
+}
+
+paginate Stage, Team, Score with infinite-scroll

@@ -1,0 +1,39 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="score">
+            <h2><span jhiTranslate="hackatonLeaderboardApp.score.detail.title">Score</span> {{score.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="hackatonLeaderboardApp.score.value">Value</span></dt>
+                <dd>
+                    <span>{{score.value}}</span>
+                </dd>
+                <dt><span jhiTranslate="hackatonLeaderboardApp.score.stage">Stage</span></dt>
+                <dd>
+                    <div *ngIf="score.stage">
+                        <a [routerLink]="['/stage', score.stage?.id, 'view']">{{score.stage?.name}}</a>
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="hackatonLeaderboardApp.score.team">Team</span></dt>
+                <dd>
+                    <div *ngIf="score.team">
+                        <a [routerLink]="['/team', score.team?.id, 'view']">{{score.team?.name}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/score', score.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

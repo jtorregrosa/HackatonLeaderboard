@@ -1,0 +1,23 @@
+{
+    "hackatonLeaderboardApp": {
+        "stage": {
+            "home": {
+                "title": "Stages",
+                "createLabel": "Crear nuevo Stage",
+                "createOrEditLabel": "Crear o editar Stage"
+            },
+            "created": "Un nuevo Stage ha sido creado con el identificador {{ param }}",
+            "updated": "Un Stage ha sido actualizado con el identificador {{ param }}",
+            "deleted": "Un Stage ha sido eliminado con el identificador {{ param }}",
+            "delete": {
+                "question": "¿Seguro que quiere eliminar Stage {{ id }}?"
+            },
+            "detail": {
+                "title": "Stage"
+            },
+            "name": "Name",
+            "description": "Description",
+            "score": "Score"
+        }
+    }
+}

@@ -38,6 +38,11 @@ public class CacheConfiguration {
             cm.createCache(eu.nouss.hackatonleaderboard.domain.User.class.getName(), jcacheConfiguration);
             cm.createCache(eu.nouss.hackatonleaderboard.domain.Authority.class.getName(), jcacheConfiguration);
             cm.createCache(eu.nouss.hackatonleaderboard.domain.User.class.getName() + ".authorities", jcacheConfiguration);
+            cm.createCache(eu.nouss.hackatonleaderboard.domain.Stage.class.getName(), jcacheConfiguration);
+            cm.createCache(eu.nouss.hackatonleaderboard.domain.Stage.class.getName() + ".scores", jcacheConfiguration);
+            cm.createCache(eu.nouss.hackatonleaderboard.domain.Team.class.getName(), jcacheConfiguration);
+            cm.createCache(eu.nouss.hackatonleaderboard.domain.Team.class.getName() + ".scores", jcacheConfiguration);
+            cm.createCache(eu.nouss.hackatonleaderboard.domain.Score.class.getName(), jcacheConfiguration);
             // jhipster-needle-ehcache-add-entry
         };
     }
