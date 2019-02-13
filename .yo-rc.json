@@ -1,0 +1,36 @@
+{
+    "generator-jhipster": {
+        "promptValues": {
+            "packageName": "eu.nouss.hackatonleaderboard",
+            "nativeLanguage": "en"
+        },
+        "jhipsterVersion": "5.7.2",
+        "applicationType": "monolith",
+        "baseName": "HackatonLeaderboard",
+        "packageName": "eu.nouss.hackatonleaderboard",
+        "packageFolder": "eu/nouss/hackatonleaderboard",
+        "serverPort": "8080",
+        "authenticationType": "jwt",
+        "cacheProvider": "ehcache",
+        "enableHibernateCache": true,
+        "websocket": false,
+        "databaseType": "sql",
+        "devDatabaseType": "h2Disk",
+        "prodDatabaseType": "mssql",
+        "searchEngine": false,
+        "messageBroker": false,
+        "serviceDiscoveryType": false,
+        "buildTool": "maven",
+        "enableSwaggerCodegen": false,
+        "jwtSecretKey": "MTA4NTc4MWQxM2U5ZGE5NWY2YzE5YWI4MzY2NTI5MzIxMTE1MmRhNTU2NTU3ZjgwZGM1NzAxYTg3MGE3YjM1MjA5YmI0NjNjMzc0MGQwOWQzNWFhZmRiNmZhYTg3MTFjYzYwNWQyYTZjY2U3ZDA2M2JlYjRkNDhmN2U1N2JkY2Q=",
+        "clientFramework": "angularX",
+        "useSass": true,
+        "clientPackageManager": "npm",
+        "testFrameworks": [],
+        "jhiPrefix": "jhi",
+        "otherModules": [],
+        "enableTranslation": true,
+        "nativeLanguage": "en",
+        "languages": ["en", "es"]
+    }
+}
