@@ -4,6 +4,7 @@ import eu.nouss.hackatonleaderboard.HackatonLeaderboardApp;
 
 import eu.nouss.hackatonleaderboard.domain.Score;
 import eu.nouss.hackatonleaderboard.repository.ScoreRepository;
+import eu.nouss.hackatonleaderboard.service.ScoreService;
 import eu.nouss.hackatonleaderboard.web.rest.errors.ExceptionTranslator;
 
 import org.junit.Before;
@@ -47,6 +48,9 @@ public class ScoreResourceIntTest {
     private ScoreRepository scoreRepository;
 
     @Autowired
+    private ScoreService scoreService;
+
+    @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
 
     @Autowired
@@ -68,7 +72,7 @@ public class ScoreResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final ScoreResource scoreResource = new ScoreResource(scoreRepository);
+        final ScoreResource scoreResource = new ScoreResource(scoreService);
         this.restScoreMockMvc = MockMvcBuilders.standaloneSetup(scoreResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
@@ -189,7 +193,7 @@ public class ScoreResourceIntTest {
     @Transactional
     public void updateScore() throws Exception {
         // Initialize the database
-        scoreRepository.saveAndFlush(score);
+        scoreService.save(score);
 
         int databaseSizeBeforeUpdate = scoreRepository.findAll().size();
 
@@ -234,7 +238,7 @@ public class ScoreResourceIntTest {
     @Transactional
     public void deleteScore() throws Exception {
         // Initialize the database
-        scoreRepository.saveAndFlush(score);
+        scoreService.save(score);
 
         int databaseSizeBeforeDelete = scoreRepository.findAll().size();
 

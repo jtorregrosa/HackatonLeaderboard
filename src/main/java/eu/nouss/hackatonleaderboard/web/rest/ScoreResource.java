@@ -2,7 +2,7 @@ package eu.nouss.hackatonleaderboard.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 import eu.nouss.hackatonleaderboard.domain.Score;
-import eu.nouss.hackatonleaderboard.repository.ScoreRepository;
+import eu.nouss.hackatonleaderboard.service.ScoreService;
 import eu.nouss.hackatonleaderboard.web.rest.errors.BadRequestAlertException;
 import eu.nouss.hackatonleaderboard.web.rest.util.HeaderUtil;
 import eu.nouss.hackatonleaderboard.web.rest.util.PaginationUtil;
@@ -34,10 +34,10 @@ public class ScoreResource {
 
     private static final String ENTITY_NAME = "score";
 
-    private final ScoreRepository scoreRepository;
+    private final ScoreService scoreService;
 
-    public ScoreResource(ScoreRepository scoreRepository) {
-        this.scoreRepository = scoreRepository;
+    public ScoreResource(ScoreService scoreService) {
+        this.scoreService = scoreService;
     }
 
     /**
@@ -54,7 +54,7 @@ public class ScoreResource {
         if (score.getId() != null) {
             throw new BadRequestAlertException("A new score cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        Score result = scoreRepository.save(score);
+        Score result = scoreService.save(score);
         return ResponseEntity.created(new URI("/api/scores/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -76,7 +76,7 @@ public class ScoreResource {
         if (score.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
-        Score result = scoreRepository.save(score);
+        Score result = scoreService.save(score);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, score.getId().toString()))
             .body(result);
@@ -92,7 +92,7 @@ public class ScoreResource {
     @Timed
     public ResponseEntity<List<Score>> getAllScores(Pageable pageable) {
         log.debug("REST request to get a page of Scores");
-        Page<Score> page = scoreRepository.findAll(pageable);
+        Page<Score> page = scoreService.findAll(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/scores");
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
@@ -107,7 +107,7 @@ public class ScoreResource {
     @Timed
     public ResponseEntity<Score> getScore(@PathVariable Long id) {
         log.debug("REST request to get Score : {}", id);
-        Optional<Score> score = scoreRepository.findById(id);
+        Optional<Score> score = scoreService.findOne(id);
         return ResponseUtil.wrapOrNotFound(score);
     }
 
@@ -121,8 +121,7 @@ public class ScoreResource {
     @Timed
     public ResponseEntity<Void> deleteScore(@PathVariable Long id) {
         log.debug("REST request to delete Score : {}", id);
-
-        scoreRepository.deleteById(id);
+        scoreService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
 }

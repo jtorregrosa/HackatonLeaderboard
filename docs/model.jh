@@ -21,3 +21,5 @@ relationship OneToMany {
 }
 
 paginate Stage, Team, Score with infinite-scroll
+
+service all with serviceImpl

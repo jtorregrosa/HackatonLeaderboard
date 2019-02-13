@@ -2,7 +2,7 @@ package eu.nouss.hackatonleaderboard.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 import eu.nouss.hackatonleaderboard.domain.Stage;
-import eu.nouss.hackatonleaderboard.repository.StageRepository;
+import eu.nouss.hackatonleaderboard.service.StageService;
 import eu.nouss.hackatonleaderboard.web.rest.errors.BadRequestAlertException;
 import eu.nouss.hackatonleaderboard.web.rest.util.HeaderUtil;
 import eu.nouss.hackatonleaderboard.web.rest.util.PaginationUtil;
@@ -34,10 +34,10 @@ public class StageResource {
 
     private static final String ENTITY_NAME = "stage";
 
-    private final StageRepository stageRepository;
+    private final StageService stageService;
 
-    public StageResource(StageRepository stageRepository) {
-        this.stageRepository = stageRepository;
+    public StageResource(StageService stageService) {
+        this.stageService = stageService;
     }
 
     /**
@@ -54,7 +54,7 @@ public class StageResource {
         if (stage.getId() != null) {
             throw new BadRequestAlertException("A new stage cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        Stage result = stageRepository.save(stage);
+        Stage result = stageService.save(stage);
         return ResponseEntity.created(new URI("/api/stages/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -76,7 +76,7 @@ public class StageResource {
         if (stage.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
-        Stage result = stageRepository.save(stage);
+        Stage result = stageService.save(stage);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, stage.getId().toString()))
             .body(result);
@@ -92,7 +92,7 @@ public class StageResource {
     @Timed
     public ResponseEntity<List<Stage>> getAllStages(Pageable pageable) {
         log.debug("REST request to get a page of Stages");
-        Page<Stage> page = stageRepository.findAll(pageable);
+        Page<Stage> page = stageService.findAll(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/stages");
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
@@ -107,7 +107,7 @@ public class StageResource {
     @Timed
     public ResponseEntity<Stage> getStage(@PathVariable Long id) {
         log.debug("REST request to get Stage : {}", id);
-        Optional<Stage> stage = stageRepository.findById(id);
+        Optional<Stage> stage = stageService.findOne(id);
         return ResponseUtil.wrapOrNotFound(stage);
     }
 
@@ -121,8 +121,7 @@ public class StageResource {
     @Timed
     public ResponseEntity<Void> deleteStage(@PathVariable Long id) {
         log.debug("REST request to delete Stage : {}", id);
-
-        stageRepository.deleteById(id);
+        stageService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
 }

@@ -14,20 +14,20 @@
             "relationshipName": "stage",
             "otherEntityName": "stage",
             "relationshipType": "many-to-one",
-            "otherEntityField": "name"
+            "otherEntityField": "id"
         },
         {
             "relationshipName": "team",
             "otherEntityName": "team",
             "relationshipType": "many-to-one",
-            "otherEntityField": "name"
+            "otherEntityField": "id"
         }
     ],
     "changelogDate": "20190213190327",
     "entityTableName": "score",
     "dto": "no",
     "pagination": "infinite-scroll",
-    "service": "no",
+    "service": "serviceImpl",
     "jpaMetamodelFiltering": false,
     "fluentMethods": true,
     "clientRootFolder": "",

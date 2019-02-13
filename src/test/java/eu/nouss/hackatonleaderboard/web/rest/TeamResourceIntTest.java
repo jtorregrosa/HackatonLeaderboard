@@ -5,6 +5,7 @@ import eu.nouss.hackatonleaderboard.HackatonLeaderboardApp;
 import eu.nouss.hackatonleaderboard.domain.Team;
 import eu.nouss.hackatonleaderboard.domain.Score;
 import eu.nouss.hackatonleaderboard.repository.TeamRepository;
+import eu.nouss.hackatonleaderboard.service.TeamService;
 import eu.nouss.hackatonleaderboard.web.rest.errors.ExceptionTranslator;
 
 import org.junit.Before;
@@ -51,6 +52,9 @@ public class TeamResourceIntTest {
     private TeamRepository teamRepository;
 
     @Autowired
+    private TeamService teamService;
+
+    @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
 
     @Autowired
@@ -72,7 +76,7 @@ public class TeamResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final TeamResource teamResource = new TeamResource(teamRepository);
+        final TeamResource teamResource = new TeamResource(teamService);
         this.restTeamMockMvc = MockMvcBuilders.standaloneSetup(teamResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
@@ -202,7 +206,7 @@ public class TeamResourceIntTest {
     @Transactional
     public void updateTeam() throws Exception {
         // Initialize the database
-        teamRepository.saveAndFlush(team);
+        teamService.save(team);
 
         int databaseSizeBeforeUpdate = teamRepository.findAll().size();
 
@@ -249,7 +253,7 @@ public class TeamResourceIntTest {
     @Transactional
     public void deleteTeam() throws Exception {
         // Initialize the database
-        teamRepository.saveAndFlush(team);
+        teamService.save(team);
 
         int databaseSizeBeforeDelete = teamRepository.findAll().size();
 

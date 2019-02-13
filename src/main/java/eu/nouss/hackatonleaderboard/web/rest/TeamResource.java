@@ -2,7 +2,7 @@ package eu.nouss.hackatonleaderboard.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 import eu.nouss.hackatonleaderboard.domain.Team;
-import eu.nouss.hackatonleaderboard.repository.TeamRepository;
+import eu.nouss.hackatonleaderboard.service.TeamService;
 import eu.nouss.hackatonleaderboard.web.rest.errors.BadRequestAlertException;
 import eu.nouss.hackatonleaderboard.web.rest.util.HeaderUtil;
 import eu.nouss.hackatonleaderboard.web.rest.util.PaginationUtil;
@@ -34,10 +34,10 @@ public class TeamResource {
 
     private static final String ENTITY_NAME = "team";
 
-    private final TeamRepository teamRepository;
+    private final TeamService teamService;
 
-    public TeamResource(TeamRepository teamRepository) {
-        this.teamRepository = teamRepository;
+    public TeamResource(TeamService teamService) {
+        this.teamService = teamService;
     }
 
     /**
@@ -54,7 +54,7 @@ public class TeamResource {
         if (team.getId() != null) {
             throw new BadRequestAlertException("A new team cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        Team result = teamRepository.save(team);
+        Team result = teamService.save(team);
         return ResponseEntity.created(new URI("/api/teams/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -76,7 +76,7 @@ public class TeamResource {
         if (team.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
-        Team result = teamRepository.save(team);
+        Team result = teamService.save(team);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, team.getId().toString()))
             .body(result);
@@ -92,7 +92,7 @@ public class TeamResource {
     @Timed
     public ResponseEntity<List<Team>> getAllTeams(Pageable pageable) {
         log.debug("REST request to get a page of Teams");
-        Page<Team> page = teamRepository.findAll(pageable);
+        Page<Team> page = teamService.findAll(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/teams");
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
@@ -107,7 +107,7 @@ public class TeamResource {
     @Timed
     public ResponseEntity<Team> getTeam(@PathVariable Long id) {
         log.debug("REST request to get Team : {}", id);
-        Optional<Team> team = teamRepository.findById(id);
+        Optional<Team> team = teamService.findOne(id);
         return ResponseUtil.wrapOrNotFound(team);
     }
 
@@ -121,8 +121,7 @@ public class TeamResource {
     @Timed
     public ResponseEntity<Void> deleteTeam(@PathVariable Long id) {
         log.debug("REST request to delete Team : {}", id);
-
-        teamRepository.deleteById(id);
+        teamService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
 }

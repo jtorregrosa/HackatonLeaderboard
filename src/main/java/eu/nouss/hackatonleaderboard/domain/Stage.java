@@ -17,7 +17,7 @@ import java.util.Objects;
  */
 @Entity
 @Table(name = "stage")
-@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Stage implements Serializable {
 
     private static final long serialVersionUID = 1L;

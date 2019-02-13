@@ -5,6 +5,7 @@ import eu.nouss.hackatonleaderboard.HackatonLeaderboardApp;
 import eu.nouss.hackatonleaderboard.domain.Stage;
 import eu.nouss.hackatonleaderboard.domain.Score;
 import eu.nouss.hackatonleaderboard.repository.StageRepository;
+import eu.nouss.hackatonleaderboard.service.StageService;
 import eu.nouss.hackatonleaderboard.web.rest.errors.ExceptionTranslator;
 
 import org.junit.Before;
@@ -51,6 +52,9 @@ public class StageResourceIntTest {
     private StageRepository stageRepository;
 
     @Autowired
+    private StageService stageService;
+
+    @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
 
     @Autowired
@@ -72,7 +76,7 @@ public class StageResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final StageResource stageResource = new StageResource(stageRepository);
+        final StageResource stageResource = new StageResource(stageService);
         this.restStageMockMvc = MockMvcBuilders.standaloneSetup(stageResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
@@ -202,7 +206,7 @@ public class StageResourceIntTest {
     @Transactional
     public void updateStage() throws Exception {
         // Initialize the database
-        stageRepository.saveAndFlush(stage);
+        stageService.save(stage);
 
         int databaseSizeBeforeUpdate = stageRepository.findAll().size();
 
@@ -249,7 +253,7 @@ public class StageResourceIntTest {
     @Transactional
     public void deleteStage() throws Exception {
         // Initialize the database
-        stageRepository.saveAndFlush(stage);
+        stageService.save(stage);
 
         int databaseSizeBeforeDelete = stageRepository.findAll().size();
 

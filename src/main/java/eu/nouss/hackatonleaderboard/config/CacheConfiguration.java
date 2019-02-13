@@ -43,6 +43,8 @@ public class CacheConfiguration {
             cm.createCache(eu.nouss.hackatonleaderboard.domain.Team.class.getName(), jcacheConfiguration);
             cm.createCache(eu.nouss.hackatonleaderboard.domain.Team.class.getName() + ".scores", jcacheConfiguration);
             cm.createCache(eu.nouss.hackatonleaderboard.domain.Score.class.getName(), jcacheConfiguration);
+            cm.createCache(eu.nouss.hackatonleaderboard.domain.Leaderboard.class.getName(), jcacheConfiguration);
+            cm.createCache(eu.nouss.hackatonleaderboard.domain.LeaderboardEntry.class.getName(), jcacheConfiguration);
             // jhipster-needle-ehcache-add-entry
         };
     }

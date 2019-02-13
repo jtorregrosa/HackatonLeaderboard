@@ -1,0 +1,17 @@
+<div class="leaderboard-container">
+    <div class="leaderboard">
+        <h1>
+            <svg class="ico-cup">
+                <use xlink:href="#cup"></use>
+            </svg>
+            Teams Leaderboard
+        </h1>
+        <ol>
+            <li *ngFor="let entry of leaderboard.entries">
+                <mark>{{ entry.name }}</mark>
+                <span>{{ entry.value }}</span>
+            </li>
+        </ol>
+    </div>
+</div>
+

@@ -18,12 +18,16 @@ import { HackatonLeaderboardHomeModule } from './home/home.module';
 import { HackatonLeaderboardAccountModule } from './account/account.module';
 import { HackatonLeaderboardEntityModule } from './entities/entity.module';
 import * as moment from 'moment';
+import { HackatonLeaderboardAppAboutUsModule } from './about-us/about-us.module';
+import { HackatonLeaderboardAppLeaderboardModule } from './leaderboard/leaderboard.module';
+
 // jhipster-needle-angular-add-module-import JHipster will add new module here
 import { JhiMainComponent, NavbarComponent, FooterComponent, PageRibbonComponent, ActiveMenuDirective, ErrorComponent } from './layouts';
 
 @NgModule({
     imports: [
         BrowserModule,
+
         HackatonLeaderboardAppRoutingModule,
         Ng2Webstorage.forRoot({ prefix: 'jhi', separator: '-' }),
         NgJhipsterModule.forRoot({
@@ -37,6 +41,8 @@ import { JhiMainComponent, NavbarComponent, FooterComponent, PageRibbonComponent
         HackatonLeaderboardCoreModule,
         HackatonLeaderboardHomeModule,
         HackatonLeaderboardAccountModule,
+        HackatonLeaderboardAppAboutUsModule,
+        HackatonLeaderboardAppLeaderboardModule,
         // jhipster-needle-angular-add-module JHipster will add new module here
         HackatonLeaderboardEntityModule
     ],

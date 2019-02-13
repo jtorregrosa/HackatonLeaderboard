@@ -12,13 +12,13 @@
                 <dt><span jhiTranslate="hackatonLeaderboardApp.score.stage">Stage</span></dt>
                 <dd>
                     <div *ngIf="score.stage">
-                        <a [routerLink]="['/stage', score.stage?.id, 'view']">{{score.stage?.name}}</a>
+                        <a [routerLink]="['/stage', score.stage?.id, 'view']">{{score.stage?.id}}</a>
                     </div>
                 </dd>
                 <dt><span jhiTranslate="hackatonLeaderboardApp.score.team">Team</span></dt>
                 <dd>
                     <div *ngIf="score.team">
-                        <a [routerLink]="['/team', score.team?.id, 'view']">{{score.team?.name}}</a>
+                        <a [routerLink]="['/team', score.team?.id, 'view']">{{score.team?.id}}</a>
                     </div>
                 </dd>
             </dl>
