@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import * as $ from 'jquery';
 import { LeaderboardService } from './leaderboard.service';
 import { IScore } from 'app/shared/model/score.model';
 import { HttpErrorResponse, HttpHeaders, HttpResponse } from '@angular/common/http';
@@ -45,25 +44,15 @@ export class LeaderboardComponent implements OnInit {
         this.jhiAlertService.error(errorMessage, null, null);
     }
 
+    fullscreen() {
+        const element = document.getElementsByClassName('leaderboard-container')[0];
+
+        if (element.requestFullscreen) {
+            element['webkitRequestFullScreen']();
+        }
+    }
+
     ngOnInit() {
         this.loadAll();
-
-        // global vars
-        const winWidth = $(window).width();
-        const winHeight = $(window).height();
-
-        // set initial div height / width
-        $('.leaderboard-container').css({
-            position: 'absolute',
-            top: 0,
-            bottom: 0,
-            left: 0,
-            right: 0
-        });
-
-        const element = $('.leaderboard-container').get(0);
-        if (element.requestFullscreen) {
-            element.requestFullscreen();
-        }
     }
 }

@@ -14,13 +14,13 @@
             "relationshipName": "stage",
             "otherEntityName": "stage",
             "relationshipType": "many-to-one",
-            "otherEntityField": "id"
+            "otherEntityField": "name"
         },
         {
             "relationshipName": "team",
             "otherEntityName": "team",
             "relationshipType": "many-to-one",
-            "otherEntityField": "id"
+            "otherEntityField": "name"
         }
     ],
     "changelogDate": "20190213190327",

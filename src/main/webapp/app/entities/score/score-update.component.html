@@ -29,14 +29,14 @@
                     <label class="form-control-label" jhiTranslate="hackatonLeaderboardApp.score.stage" for="field_stage">Stage</label>
                     <select class="form-control" id="field_stage" name="stage" [(ngModel)]="score.stage" >
                         <option [ngValue]="null"></option>
-                        <option [ngValue]="stageOption.id === score.stage?.id ? score.stage : stageOption" *ngFor="let stageOption of stages; trackBy: trackStageById">{{stageOption.id}}</option>
+                        <option [ngValue]="stageOption.id === score.stage?.id ? score.stage : stageOption" *ngFor="let stageOption of stages; trackBy: trackStageById">{{stageOption.name}}</option>
                     </select>
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="hackatonLeaderboardApp.score.team" for="field_team">Team</label>
                     <select class="form-control" id="field_team" name="team" [(ngModel)]="score.team" >
                         <option [ngValue]="null"></option>
-                        <option [ngValue]="teamOption.id === score.team?.id ? score.team : teamOption" *ngFor="let teamOption of teams; trackBy: trackTeamById">{{teamOption.id}}</option>
+                        <option [ngValue]="teamOption.id === score.team?.id ? score.team : teamOption" *ngFor="let teamOption of teams; trackBy: trackTeamById">{{teamOption.name}}</option>
                     </select>
                 </div>
             </div>

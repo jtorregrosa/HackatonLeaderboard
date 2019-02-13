@@ -16,8 +16,8 @@
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="reset.bind(this)">
             <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="value"><span jhiTranslate="hackatonLeaderboardApp.score.value">Value</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="stage.id"><span jhiTranslate="hackatonLeaderboardApp.score.stage">Stage</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="team.id"><span jhiTranslate="hackatonLeaderboardApp.score.team">Team</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="stage.name"><span jhiTranslate="hackatonLeaderboardApp.score.stage">Stage</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="team.name"><span jhiTranslate="hackatonLeaderboardApp.score.team">Team</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th></th>
             </tr>
             </thead>
@@ -27,12 +27,12 @@
                 <td>{{score.value}}</td>
                 <td>
                     <div *ngIf="score.stage">
-                        <a [routerLink]="['../stage', score.stage?.id, 'view' ]" >{{score.stage?.id}}</a>
+                        <a [routerLink]="['../stage', score.stage?.id, 'view' ]" >{{score.stage?.name}}</a>
                     </div>
                 </td>
                 <td>
                     <div *ngIf="score.team">
-                        <a [routerLink]="['../team', score.team?.id, 'view' ]" >{{score.team?.id}}</a>
+                        <a [routerLink]="['../team', score.team?.id, 'view' ]" >{{score.team?.name}}</a>
                     </div>
                 </td>
                 <td class="text-right">
