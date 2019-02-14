@@ -1,6 +1,13 @@
 /* leaderboard.component.scss */
 
+.fullscreen-button {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}
+
 .leaderboard-container {
+    padding-top: 50px;
     min-height: 450px;
     height: 100%;
     margin: 0;
@@ -79,6 +86,8 @@ $default-position-color: #8f3b38;
                 margin: 0;
                 background: none;
                 color: #fff;
+                font-size: 1.3em;
+                font-weight: bold;
 
                 &::before,
                 &::after {
