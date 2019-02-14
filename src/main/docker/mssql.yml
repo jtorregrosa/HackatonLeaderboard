@@ -8,6 +8,7 @@ services:
         environment:
             - ACCEPT_EULA=Y
             - SA_PASSWORD=yourStrong(!)Password
+            - MSSQL_PID=Developer
             - MSSQL_DATABASE=HackatonLeaderboard
             - MSSQL_SLEEP=7
         ports:
