@@ -1,9 +1,10 @@
 package eu.nouss.hackatonleaderboard.domain;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
-public class Leaderboard {
+public class Leaderboard  {
     private List<LeaderboardEntry> entries;
 
     public Leaderboard() {
@@ -21,6 +22,7 @@ public class Leaderboard {
 
     public void addEntry(LeaderboardEntry entry) {
         this.entries.add(entry);
+        Collections.sort(this.entries);
     }
 }
 

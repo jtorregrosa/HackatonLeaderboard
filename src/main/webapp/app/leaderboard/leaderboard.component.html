@@ -1,5 +1,8 @@
 <div class="leaderboard-container">
-    <button (click)="fullscreen()">fullscreen</button>
+    <a class="fullscreen-button" (click)="fullscreen()">
+        <fa-icon icon="expand" fixedWidth="true"></fa-icon>
+        <span>Fullscreen</span>
+    </a>
     <section>
         <div class="leaderboard__logo">
             <span class="nouss__logo"></span>
@@ -10,7 +13,7 @@
             <svg class="ico-cup">
                 <use xlink:href="#cup"></use>
             </svg>
-            Teams Leaderboard
+            Ranking
         </h1>
         <ol>
             <li *ngFor="let entry of leaderboard.entries">

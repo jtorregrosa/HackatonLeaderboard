@@ -4,6 +4,7 @@ import { IScore } from 'app/shared/model/score.model';
 import { HttpErrorResponse, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { JhiEventManager, JhiParseLinks, JhiAlertService } from 'ng-jhipster';
 import { ILeaderboard } from 'app/shared/model/leaderboard.model';
+import { ifError } from 'assert';
 
 @Component({
     selector: 'jhi-leaderboard',
@@ -15,6 +16,7 @@ export class LeaderboardComponent implements OnInit {
     message: string;
     totalItems: number;
     links: any;
+    private timer;
 
     constructor(
         protected leaderboardService: LeaderboardService,
@@ -47,12 +49,23 @@ export class LeaderboardComponent implements OnInit {
     fullscreen() {
         const element = document.getElementsByClassName('leaderboard-container')[0];
 
-        if (element.requestFullscreen) {
+        if (element['requestFullScreen']) {
+            element['requestFullScreen']();
+        } else if (element['mozRequestFullScreen']) {
+            /* Firefox */
+            element['mozRequestFullScreen']();
+        } else if (element['webkitRequestFullScreen']) {
+            /* Chrome, Safari and Opera */
             element['webkitRequestFullScreen']();
+        } else if (element['msRequestFullScreen']) {
+            /* IE/Edge */
+            element['msRequestFullScreen']();
         }
     }
 
     ngOnInit() {
         this.loadAll();
+
+        this.timer = setInterval(() => this.loadAll(), 10000);
     }
 }

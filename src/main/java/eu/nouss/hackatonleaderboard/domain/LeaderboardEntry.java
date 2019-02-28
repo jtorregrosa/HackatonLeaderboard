@@ -1,6 +1,6 @@
 package eu.nouss.hackatonleaderboard.domain;
 
-public class LeaderboardEntry {
+public class LeaderboardEntry implements Comparable<LeaderboardEntry>  {
     private String name;
     private int value;
 
@@ -27,5 +27,12 @@ public class LeaderboardEntry {
 
     public void setValue(int value) {
         this.value = value;
+    }
+
+    @Override
+    public int compareTo(LeaderboardEntry leaderboardEntry) {
+        if(this.getValue() < leaderboardEntry.getValue()) return 1;
+        else if(this.getValue() == leaderboardEntry.getValue()) return 0;
+        else return -1;
     }
 }
